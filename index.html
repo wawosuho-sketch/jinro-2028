@@ -5,119 +5,132 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="noindex, nofollow">
   <title>세종고등학교 2028 진학상담 리포트</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600&family=Song+Myung&display=swap" rel="stylesheet">
   <style>
-    :root { color-scheme: dark; }
+    :root { color-scheme: light; }
     * { box-sizing: border-box; }
     html, body { margin: 0; min-height: 100%; }
     body {
-      font-family: "Malgun Gothic", "Apple SD Gothic Neo", sans-serif;
-      color: #f6f1e7;
-      background: #100e0c;
-      overflow-x: hidden;
+      font-family: "IBM Plex Sans KR", "Malgun Gothic", sans-serif;
+      color: #1c2430;
+      background: #f7f6f3;
     }
     .hall {
       position: fixed; inset: 0;
       background:
-        linear-gradient(180deg, rgba(8,10,14,.25), rgba(8,10,14,.82)),
+        linear-gradient(180deg, rgba(247,246,243,.72), rgba(247,246,243,.9)),
         url("hall.jpg") center/cover no-repeat;
-      transform: scale(1.04);
-      animation: drift 36s ease-in-out infinite alternate;
-    }
-    .vignette {
-      position: fixed; inset: 0;
-      background: radial-gradient(ellipse at center, transparent 20%, rgba(0,0,0,.78) 100%);
-      pointer-events: none;
-    }
-    .beam {
-      position: fixed; top: -20%; left: 42%; width: 16vw; height: 140%;
-      background: linear-gradient(180deg, rgba(255,244,220,.22), transparent 62%);
-      filter: blur(6px);
-      animation: sweep 12s ease-in-out infinite;
-      pointer-events: none;
+      transform: scale(1.03);
+      animation: drift 40s ease-in-out infinite alternate;
     }
     .stage {
       position: relative; z-index: 1;
-      max-width: 640px; margin: 0 auto;
-      padding: 48px 18px 64px;
-      min-height: 100vh;
+      max-width: 760px; margin: 0 auto;
+      padding: 56px 18px 72px;
     }
-    h1 { margin: 0 0 8px; font-size: 36px; line-height: 1.2; font-weight: 800; }
-    .eyebrow { margin: 0 0 10px; letter-spacing: .18em; color: #e6d3a1; font-size: 13px; }
-    .lead { margin: 0 0 16px; line-height: 1.7; color: #f6f1e7; }
-    .card {
-      background: rgba(12,14,18,.78);
-      border: 1px solid rgba(230,211,161,.4);
-      padding: 26px 22px 18px;
-      animation: rise 1.2s ease both;
+    .mark {
+      margin: 0 0 18px;
+      font-size: 13px; letter-spacing: .16em; color: #5c6b7a;
     }
-    .caution { margin: 0 0 16px; padding: 12px 12px 4px; background: rgba(255,248,230,.08); }
-    .caution strong { color: #e6d3a1; }
-    .caution li { margin: 0 0 8px; line-height: 1.55; }
-    a { color: #e6d3a1; }
-    .sources { margin: 8px 0 0; padding: 0; list-style: none; }
-    .sources a { display: block; margin: 0 0 8px; line-height: 1.45; }
-    label { display: block; margin: 12px 0 6px; font-weight: 700; }
+    h1 {
+      margin: 0 0 10px;
+      font-family: "Song Myung", "Batang", serif;
+      font-size: 40px; font-weight: 400; letter-spacing: -0.03em; line-height: 1.25;
+    }
+    .lead { margin: 0 0 22px; line-height: 1.75; color: #3d4a57; }
+    .slip {
+      background: #fff;
+      border: 1px solid #e4e0d8;
+      box-shadow: 0 18px 50px rgba(40, 48, 58, .08);
+      padding: 28px 26px 22px;
+    }
+    .slip h2 {
+      margin: 0 0 14px;
+      font-family: "Song Myung", serif;
+      font-size: 22px; font-weight: 400;
+    }
+    .fields { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    label { display: block; margin-bottom: 6px; font-size: 13px; color: #5c6b7a; }
     input {
-      width: 100%; padding: 12px; border: 1px solid #c8a15a; border-radius: 0;
-      background: rgba(255,255,255,.94); color: #17212b; font-size: 18px;
+      width: 100%; padding: 12px 0;
+      border: 0; border-bottom: 1px solid #d5d0c8;
+      background: transparent; color: #1c2430;
+      font: 500 20px "IBM Plex Sans KR", sans-serif;
+      border-radius: 0;
     }
+    input:focus { outline: none; border-bottom-color: #1c2430; }
     button {
-      margin-top: 16px; width: 100%; border: 0; background: #e6d3a1; color: #1a140e;
-      padding: 13px; font-size: 16px; font-weight: 800; letter-spacing: .08em; cursor: pointer;
+      margin-top: 20px; width: 100%;
+      border: 0; background: #1c2430; color: #fff;
+      padding: 14px; font: 600 15px "IBM Plex Sans KR", sans-serif;
+      letter-spacing: .08em; cursor: pointer;
     }
-    button:hover { background: #fff6df; }
-    .err { min-height: 1.4em; color: #ffb4a8; font-weight: 700; }
+    button:hover { background: #31404f; }
+    .err { min-height: 1.4em; color: #9b3b3b; font-weight: 600; }
+    .note { margin: 18px 0 0; color: #3d4a57; line-height: 1.7; font-size: 14px; }
+    .note a { color: #1c2430; }
+    .shelf { margin-top: 28px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+    .book {
+      display: flex; flex-direction: column; justify-content: flex-end;
+      min-height: 148px; padding: 16px 14px 14px;
+      background: #fff; color: #1c2430; text-decoration: none;
+      border: 1px solid #e4e0d8;
+      box-shadow: 0 10px 24px rgba(40, 48, 58, .05);
+      transition: transform .25s ease, box-shadow .25s ease;
+    }
+    .book:hover { transform: translateY(-6px); box-shadow: 0 16px 30px rgba(40, 48, 58, .1); }
+    .book span { display: block; font-size: 12px; letter-spacing: .08em; color: #7a8794; margin-bottom: 8px; }
+    .book strong { font-family: "Song Myung", serif; font-size: 20px; font-weight: 400; line-height: 1.35; }
     #viewer { display: none; position: fixed; inset: 0; z-index: 5; background: #fff; }
     #viewer iframe { width: 100%; height: calc(100% - 52px); border: 0; background: #fff; }
     #bar {
       height: 52px; display: flex; align-items: center; justify-content: space-between;
-      padding: 0 14px; background: #14110e; color: #e6d3a1;
+      padding: 0 16px; background: #f7f6f3; border-bottom: 1px solid #e4e0d8; color: #1c2430;
     }
-    #bar button { width: auto; margin: 0; padding: 8px 14px; }
-    @keyframes drift { from { transform: scale(1.08) translate3d(0,0,0); } to { transform: scale(1.16) translate3d(-2%, -1%, 0); } }
-    @keyframes sweep { 0%,100% { opacity: .35; } 50% { opacity: .85; } }
-    @keyframes rise { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: none; } }
-    @media (max-width: 860px) {
-      .stage { padding-top: 24px; }
-      h1 { font-size: 30px; }
+    #bar button { width: auto; margin: 0; padding: 8px 14px; background: #1c2430; }
+    @keyframes drift {
+      from { transform: scale(1.03); }
+      to { transform: scale(1.08) translate3d(0, -1%, 0); }
+    }
+    @media (max-width: 720px) {
+      h1 { font-size: 32px; }
+      .fields, .shelf { grid-template-columns: 1fr; }
+      .book { min-height: 0; }
     }
     @media (prefers-reduced-motion: reduce) {
-      .hall, .beam, .card { animation: none; }
+      .hall, .book { animation: none; transition: none; }
     }
   </style>
 </head>
 <body>
   <div class="hall"></div>
-  <div class="vignette"></div>
-  <div class="beam"></div>
   <main class="stage" id="gate">
-    <section class="card">
-      <p class="eyebrow">세종시 세종고등학교</p>
-      <h1>2028 진학상담 리포트</h1>
-      <p class="lead">이 자료는 세종고등학교가 학생 상담을 위해 만든 학교 고유 자료입니다. 본인 학번과 담임에게 받은 비밀번호로만 열립니다.</p>
-      <div class="caution">
-        <strong>활용할 때 지킬 일</strong>
-        <ul>
-          <li>이 페이지가 열려 있는 시간에만 봅니다. 열람 시간이 지난 뒤 자료가 필요하면 담임선생님께 문의합니다.</li>
-          <li>합격 예측표가 아닙니다. 숫자의 의미는 <a href="guide.html">리포트 이용 안내서</a>와 함께 읽습니다.</li>
-          <li>리포트가 인용한 서울시교육청 원문은 여기서 바로 받습니다.
-            <ul class="sources">
-              <li><a href="sources/2026-handbook.pdf" download>2026학년도 고1·2학년 진학지도 자료집</a></li>
-              <li><a href="sources/2027-college.pdf" download>쎈진학 2027 수시 대학별 분석 Ⅱ 전문대학교</a></li>
-              <li><a href="sources/2028-preview.pdf" download>2028 대입전형시행계획 요약, 쎈진학 프리뷰</a></li>
-            </ul>
-          </li>
-        </ul>
+    <p class="mark">세종시 세종고등학교</p>
+    <h1>2028 진학상담 리포트</h1>
+    <p class="lead">학교 상담을 위해 만든 자료입니다. 학번과 비밀번호는 대출 신청서처럼 본인 것만 입력합니다.</p>
+    <form class="slip" id="form">
+      <h2>열람 신청</h2>
+      <div class="fields">
+        <div>
+          <label for="sid">학번</label>
+          <input id="sid" name="sid" inputmode="numeric" autocomplete="username" placeholder="20101" maxlength="5" required>
+        </div>
+        <div>
+          <label for="pw">비밀번호</label>
+          <input id="pw" name="pw" type="password" autocomplete="current-password" placeholder="8자리" required>
+        </div>
       </div>
-      <form id="form">
-        <label for="sid">학번</label>
-        <input id="sid" name="sid" inputmode="numeric" autocomplete="username" placeholder="20101" maxlength="5" required>
-        <label for="pw">비밀번호</label>
-        <input id="pw" name="pw" type="password" autocomplete="current-password" placeholder="8자리" required>
-        <button type="submit">내 리포트 열기</button>
-      </form>
+      <button type="submit">열람하기</button>
       <p class="err" id="err" role="alert"></p>
-    </section>
+    </form>
+    <p class="note">이 페이지가 열려 있는 시간에만 봅니다. 열람 시간이 지난 뒤 자료가 필요하면 담임선생님께 문의합니다. 숫자의 의미는 <a href="guide.html">리포트 이용 안내서</a>와 함께 읽습니다. 합격 예측표가 아닙니다.</p>
+    <nav class="shelf" aria-label="원문 자료">
+      <a class="book" href="sources/2026-handbook.pdf" download><span>01</span><strong>진학지도 자료집</strong></a>
+      <a class="book" href="sources/2027-college.pdf" download><span>02</span><strong>2027학년도 전문대정보</strong></a>
+      <a class="book" href="sources/2028-preview.pdf" download><span>03</span><strong>2028 4년제 대입전형계획 대학별 요약</strong></a>
+    </nav>
   </main>
   <div id="viewer">
     <div id="bar"><strong>세종고등학교 진학상담 리포트</strong><button type="button" id="close">닫기</button></div>
@@ -139,7 +152,7 @@
     function fail() { err.textContent = "학번 또는 비밀번호가 맞지 않습니다."; }
     form.addEventListener("submit", async (event) => {
       event.preventDefault();
-      err.textContent = "문을 여는 중입니다.";
+      err.textContent = "찾아 오는 중입니다.";
       const sid = sidOf(document.getElementById("sid").value);
       const password = document.getElementById("pw").value.trim();
       if (!sid || password.length < 8) { fail(); return; }
