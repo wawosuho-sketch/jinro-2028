@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>2028 진학상담 리포트</title>
+  <style>
+    :root { color-scheme: light; }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: "Malgun Gothic", "Apple SD Gothic Neo", sans-serif; background: #f4f1ea; color: #17212b; }
+    .wrap { max-width: 420px; margin: 0 auto; padding: 28px 18px 40px; }
+    h1 { margin: 0 0 8px; font-size: 22px; color: #1c3440; }
+    p { margin: 0 0 14px; line-height: 1.6; color: #33505a; }
+    label { display: block; margin: 12px 0 6px; font-weight: 700; }
+    input { width: 100%; padding: 12px 12px; border: 1px solid #d9d1c3; border-radius: 8px; font-size: 18px; }
+    button { margin-top: 16px; width: 100%; border: 0; border-radius: 8px; background: #176b65; color: #fff; padding: 12px; font-size: 16px; font-weight: 700; cursor: pointer; }
+    button.secondary { background: #fff; color: #176b65; border: 1px solid #176b65; }
+    .err { min-height: 1.4em; color: #9b2c2c; font-weight: 700; }
+    a { color: #176b65; }
+    #viewer { display: none; position: fixed; inset: 0; background: #fff; }
+    #viewer iframe { width: 100%; height: calc(100% - 48px); border: 0; }
+    #bar { height: 48px; display: flex; align-items: center; justify-content: space-between; padding: 0 12px; background: #176b65; color: #fff; }
+    #bar button { width: auto; margin: 0; background: #fff; color: #176b65; padding: 8px 12px; }
+  </style>
+</head>
+<body>
+  <div class="wrap" id="gate">
+    <h1>2028 진학상담 리포트</h1>
+    <p>본인 학번과 담임에게 받은 비밀번호로만 열립니다. 다른 학생의 자료는 열 수 없습니다.</p>
+    <form id="form">
+      <label for="sid">학번</label>
+      <input id="sid" name="sid" inputmode="numeric" autocomplete="username" placeholder="2-1-01" required>
+      <label for="pw">비밀번호</label>
+      <input id="pw" name="pw" type="password" autocomplete="current-password" placeholder="8자리" required>
+      <button type="submit">내 리포트 열기</button>
+    </form>
+    <p class="err" id="err" role="alert"></p>
+    <p><a href="guide.html">리포트 이용 안내서</a>는 비밀번호 없이 볼 수 있습니다.</p>
+  </div>
+  <div id="viewer">
+    <div id="bar"><strong>내 리포트</strong><button type="button" id="close">닫기</button></div>
+    <iframe id="frame" title="진학상담 리포트" sandbox="allow-scripts allow-modals allow-popups"></iframe>
+  </div>
+  <script>
+    const form = document.getElementById("form");
+    const err = document.getElementById("err");
+    const frame = document.getElementById("frame");
+    function sidOf(value) {
+      const m = String(value || "").trim().match(/^(\d+)\s*-\s*(\d+)\s*-\s*(\d+)$/);
+      if (!m) return "";
+      return m[1] + "-" + String(Number(m[2])) + "-" + String(Number(m[3])).padStart(2, "0");
+    }
+    function fail() { err.textContent = "학번 또는 비밀번호가 맞지 않습니다."; }
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      err.textContent = "여는 중입니다.";
+      const sid = sidOf(document.getElementById("sid").value);
+      const password = document.getElementById("pw").value.trim();
+      if (!sid || password.length < 8) { fail(); return; }
+      try {
+        const catalog = await (await fetch("catalog.json", { cache: "no-store" })).json();
+        const file = catalog.students[sid];
+        if (!file) { fail(); return; }
+        const buf = await (await fetch("d/" + file, { cache: "no-store" })).arrayBuffer();
+        const bytes = new Uint8Array(buf);
+        const magic = new TextDecoder().decode(bytes.slice(0, 4));
+        if (magic !== "JR28") { fail(); return; }
+        const iterations = new DataView(buf).getUint32(5);
+        const salt = bytes.slice(9, 25);
+        const iv = bytes.slice(25, 37);
+        const data = bytes.slice(37);
+        const material = await crypto.subtle.importKey(
+          "raw", new TextEncoder().encode(password), "PBKDF2", false, ["deriveKey"]);
+        const key = await crypto.subtle.deriveKey(
+          { name: "PBKDF2", salt, iterations, hash: "SHA-256" },
+          material,
+          { name: "AES-GCM", length: 256 },
+          false,
+          ["decrypt"]);
+        const plain = await crypto.subtle.decrypt({ name: "AES-GCM", iv }, key, data);
+        const html = new TextDecoder().decode(plain);
+        document.getElementById("pw").value = "";
+        frame.srcdoc = html;
+        document.getElementById("gate").style.display = "none";
+        document.getElementById("viewer").style.display = "block";
+        err.textContent = "";
+      } catch (e) {
+        fail();
+      }
+    });
+    document.getElementById("close").addEventListener("click", () => {
+      frame.srcdoc = "";
+      document.getElementById("viewer").style.display = "none";
+      document.getElementById("gate").style.display = "block";
+    });
+  </script>
+</body>
+</html>
